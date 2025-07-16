@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 创建nextjs工程
 
-## Getting Started
+```npx create-next-app```命令创建
 
-First, run the development server:
+前提是，你有nodejs环境
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+我的项目取名为`snake`，也就是贪吃蛇应用
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![](https://cdn.jsdelivr.net/gh/YAO-JIAYE/my_imgs_repo@main/imgs/20250716174925653.png)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+然后我们可以启动项目,`npm run dev`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+![](https://cdn.jsdelivr.net/gh/YAO-JIAYE/my_imgs_repo@main/imgs/20250716175313782.png)
 
-## Learn More
+## 接下来使用AI工具对这个项目改造下
 
-To learn more about Next.js, take a look at the following resources:
+本人不会`nextJS`/(ㄒoㄒ)/~~😶，所以这里使用vscode的插件`codegeex`，在应用市场把这个插件下了
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![](https://cdn.jsdelivr.net/gh/YAO-JIAYE/my_imgs_repo@main/imgs/20250716184833597.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+很快，AI就帮我们做好了这个小程序
 
-## Deploy on Vercel
+![](https://cdn.jsdelivr.net/gh/YAO-JIAYE/my_imgs_repo@main/imgs/20250716184732022.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![](https://cdn.jsdelivr.net/gh/YAO-JIAYE/my_imgs_repo@main/imgs/20250716184645251.png)
