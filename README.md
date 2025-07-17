@@ -1,3 +1,11 @@
+## 此项目用途
+
+```
+一个AI小测试
+```
+
+
+
 ## 创建nextjs工程
 
 ```npx create-next-app```命令创建
@@ -93,4 +101,16 @@ CREATE TABLE "public"."player_score" (
 也是成功实现了
 
 ## 部署到vercel
+
+![](https://cdn.jsdelivr.net/gh/YAO-JIAYE/my_imgs_repo@main/imgs/20250717130100106.png)
+
+![](https://cdn.jsdelivr.net/gh/YAO-JIAYE/my_imgs_repo@main/imgs/20250717131106650.png)
+
+## 其他
+以下是部署好的网站：但是国内不能访问，得托管一下
+https://snake-test-omega.vercel.app/
+
+```
+此项目主要用作ai写代码的测试，当然还有ddos防御，买域名，利用cloudflare托管，创建公司邮箱等等没有实现...之后再说
+```
 
