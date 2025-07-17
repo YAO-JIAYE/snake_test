@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Position, Snake, useSnakeGame, Direction, GameStatus } from './useSnakeGame';
 
 interface GameBoardProps {
@@ -21,6 +21,54 @@ export default function SnakeGame({ gridSize = 20, cellSize = 20 }: GameBoardPro
   } = useSnakeGame({ gridSize, initialSnakeLength: 3, initialSpeed: 150, speedIncrement: 5 });
 
   const boardRef = useRef<HTMLDivElement>(null);
+  
+  // 玩家名称状态
+  const [playerName, setPlayerName] = useState<string>('');
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [saveMessage, setSaveMessage] = useState<string>('');
+
+  // 保存分数到数据库
+  const saveScore = async () => {
+    if (!playerName.trim()) {
+      setSaveMessage('请输入玩家名称');
+      return;
+    }
+
+    try {
+      setIsSaving(true);
+      setSaveMessage('正在保存...');
+
+      const response = await fetch('/api/saveScore', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          playerName: playerName.trim(),
+          score: score
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSaveMessage('分数保存成功！');
+        // 重置游戏
+        setTimeout(() => {
+          restartGame();
+          setPlayerName('');
+          setSaveMessage('');
+        }, 2000);
+      } else {
+        setSaveMessage(`保存失败: ${data.error || '未知错误'}`);
+      }
+    } catch (error) {
+      console.error('保存分数时出错:', error);
+      setSaveMessage('保存时发生错误，请重试');
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   // 处理触摸事件，用于移动设备上的操作
   useEffect(() => {
@@ -222,10 +270,22 @@ export default function SnakeGame({ gridSize = 20, cellSize = 20 }: GameBoardPro
             {gameStatus === 'READY' ? (
               <div className="text-center text-white">
                 <h2 className="text-2xl font-bold mb-4">开始游戏</h2>
+                <div className="mb-4">
+                  <label htmlFor="playerName" className="block mb-2">请输入玩家名称:</label>
+                  <input
+                    id="playerName"
+                    type="text"
+                    value={playerName}
+                    onChange={(e) => setPlayerName(e.target.value)}
+                    className="w-full px-3 py-2 rounded text-black"
+                    placeholder="请输入您的名称"
+                  />
+                </div>
                 <p className="mb-4">使用方向键或WASD控制蛇的移动</p>
                 <button
                   onClick={startGame}
-                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full"
+                  disabled={!playerName.trim()}
+                  className={`${!playerName.trim() ? 'bg-gray-500' : 'bg-green-500 hover:bg-green-600'} text-white font-bold py-2 px-6 rounded-full`}
                 >
                   开始
                 </button>
@@ -233,13 +293,24 @@ export default function SnakeGame({ gridSize = 20, cellSize = 20 }: GameBoardPro
             ) : (
               <div className="text-center text-white">
                 <h2 className="text-2xl font-bold mb-4">游戏结束</h2>
+                <p className="text-xl mb-4">玩家: {playerName}</p>
                 <p className="text-xl mb-4">得分: {score}</p>
-                <button
-                  onClick={restartGame}
-                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full"
-                >
-                  重新开始
-                </button>
+                {saveMessage && <p className="text-yellow-300 mb-4">{saveMessage}</p>}
+                <div className="flex flex-col sm:flex-row justify-center gap-3">
+                  <button
+                    onClick={saveScore}
+                    disabled={isSaving || !playerName.trim()}
+                    className={`${isSaving || !playerName.trim() ? 'bg-gray-500' : 'bg-blue-500 hover:bg-blue-600'} text-white font-bold py-2 px-6 rounded-full`}
+                  >
+                    {isSaving ? '保存中...' : '保存分数'}
+                  </button>
+                  <button
+                    onClick={restartGame}
+                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full"
+                  >
+                    重新开始
+                  </button>
+                </div>
               </div>
             )}
           </div>
